@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+br {
+    height: 100px;
+    width: 20px;
+}
+
+.character-card-container {
+    position: relative;
+    width: 270px;
+    height: 164px;
+    border-radius: 10px;
+}
+
+.character-card-button {
+    position: absolute;
+    inset: 0;
+    border: none;
+    outline: none;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.character-card-caption {
+    position: absolute;
+    pointer-events: none;
+}
