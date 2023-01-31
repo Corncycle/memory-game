@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/memory-game/static/css/main.1e061dc6.css",
-    "main.js": "/memory-game/static/js/main.4e409ad1.js",
+    "main.css": "/memory-game/static/css/main.7368fd02.css",
+    "main.js": "/memory-game/static/js/main.d6395ef4.js",
     "static/media/homura.png": "/memory-game/static/media/homura.fe1f6dd2da20e442077e.png",
     "static/media/dark_samus.png": "/memory-game/static/media/dark_samus.a0333623bdb2aca631a8.png",
     "static/media/fox.png": "/memory-game/static/media/fox.e774b921c5b248c3a105.png",
@@ -88,11 +88,11 @@
     "static/media/smash-bros.ttf": "/memory-game/static/media/smash-bros.e8c447dff25ae19b9443.ttf",
     "static/media/mr_game_and_watch.png": "/memory-game/static/media/mr_game_and_watch.e443168a8a04944a7bcc.png",
     "index.html": "/memory-game/index.html",
-    "main.1e061dc6.css.map": "/memory-game/static/css/main.1e061dc6.css.map",
-    "main.4e409ad1.js.map": "/memory-game/static/js/main.4e409ad1.js.map"
+    "main.7368fd02.css.map": "/memory-game/static/css/main.7368fd02.css.map",
+    "main.d6395ef4.js.map": "/memory-game/static/js/main.d6395ef4.js.map"
   },
   "entrypoints": [
-    "static/css/main.1e061dc6.css",
-    "static/js/main.4e409ad1.js"
+    "static/css/main.7368fd02.css",
+    "static/js/main.d6395ef4.js"
   ]
 }
