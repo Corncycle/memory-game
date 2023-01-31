@@ -28,7 +28,9 @@ export function MemoryGame() {
   const [notPlayingStatus, setNotPlayingStatus] = useState("first")
   const [lastIncorrectGuess, setLastIncorrectGuess] = useState(undefined)
   const [currScore, setCurrScore] = useState(0)
-  const [topScore, setTopScore] = useState(0)
+  const [topScore, setTopScore] = useState(
+    localStorage.getItem("topScore") || 0
+  )
   const [currShownChars, setCurrShownChars] = useState(getCharOptions())
 
   function getCharOptions() {
@@ -60,6 +62,7 @@ export function MemoryGame() {
       guessedChars.push(name)
       availChars = availChars.filter((n) => n !== name)
       if (currScore + 1 > topScore) {
+        localStorage.setItem("topScore", currScore + 1)
         setTopScore(currScore + 1)
       }
       setCurrScore((s) => s + 1)
@@ -84,7 +87,7 @@ export function MemoryGame() {
       <TopBar />
       <div className="scores-container flex-col center">
         <CurrentScoreDisplay score={currScore} />
-        <TopScoreDisplay score={topScore} />
+        <TopScoreDisplay score={localStorage.getItem("topScore") || 0} />
       </div>
       <div className="game-container flex-col center">
         {isPlaying ? (

@@ -15,7 +15,11 @@ export function StartGameDisplay(props) {
   const lostGame = {
     startGameElements: (
       <div className="start-game-message-container flex-col center smash-text">
-        <span>{"You already picked " + props.char + "!"}</span>
+        <span
+          dangerouslySetInnerHTML={{
+            __html: "You already picked " + props.char + "!",
+          }}
+        ></span>
         <span>
           {"You chose " +
             props.score +
