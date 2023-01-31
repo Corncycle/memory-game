@@ -71,7 +71,7 @@ export function StartGameDisplay(props) {
   const info = pickInfo(props.mode)
 
   return (
-    <div className="game-area-container start-game-container flex-col center">
+    <div className="game-area-container start-game-container flex-col">
       {info.startGameElements}
       <SmashButton
         onClick={props.startGameFunction}

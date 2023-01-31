@@ -7,10 +7,10 @@ export function CharacterCard(props) {
         <img src={imgs("./" + props.name + ".png")} alt={props.rawName}></img>
       </button>
       <span className="character-card-caption-border">
-        <span
+        <button
           className="character-card-caption"
           dangerouslySetInnerHTML={{ __html: props.rawName }}
-        ></span>
+        ></button>
       </span>
     </div>
   )

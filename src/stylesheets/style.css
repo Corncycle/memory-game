@@ -116,6 +116,10 @@ a:active {
     gap: 10px;
 }
 
+.scores-container {
+    overflow: hidden;
+}
+
 .current-score-container {
     background: black;
     color: white;
@@ -124,13 +128,15 @@ a:active {
     padding: 6px 24px;
     padding-bottom: 4px;
     box-shadow: 0 0 10px 2px rgb(0 0 0 / 20%);
+    white-space: nowrap;
 }
 
 .top-score-container {
     margin-top: 4px;
     font-weight: bold;
     font-size: 0.9rem;
-    color: dimgrey
+    color: dimgrey;
+    white-space: nowrap;
 }
 
 .start-game-container {
@@ -139,6 +145,7 @@ a:active {
     font-weight: bold;
     max-width: 600px;
     text-align: center;
+    align-items: center;
 }
 
 .start-game-message-container {
@@ -146,7 +153,15 @@ a:active {
 }
 
 .game-container {
-    margin-top: 30px;
+    overflow: hidden;
+}
+
+.game-area-container {
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    min-height: 300px;
+    overflow: hidden;
 }
 
 .game-cards-container {
@@ -154,6 +169,7 @@ a:active {
 }
 
 .character-card-container {
+    box-sizing: content-box;
     position: relative;
     width: 270px;
     height: 164px;
@@ -186,9 +202,9 @@ a:active {
     font-weight: bold;
     font-size: 1.1rem;
     pointer-events: none;
+    border: none;
+    font-family: "Roboto", sans-serif;
     padding: var(--caption-padding) calc(var(--caption-padding) + 5px);
-    transform: translateY(200px);
-    -webkit-transform: translateY(200px);
 }
 
 .character-card-container:hover .character-card-caption {
@@ -196,8 +212,9 @@ a:active {
 }
 
 .character-card-caption-border {
+    box-sizing: content-box;
     position: absolute;
-    padding: calc(var(--caption-padding) + var(--hover-border) + 2px) var(--hover-border) calc(var(--caption-padding) + var(--hover-border));
+    padding: var(--hover-border);
     left: 50%;
     bottom: 0;
     transform: translateX(-50%) translateY(50%);
@@ -206,6 +223,7 @@ a:active {
 }
 
 .character-card-container:hover .character-card-caption-border {
+    box-sizing: content-box;
     background-image: linear-gradient(to right, var(--border-color-1), var(--border-color-2), var(--border-color-1), var(--border-color-2), var(--border-color-1));
     background-size: 400% 100%;
     animation: 3s linear infinite gradient;
@@ -229,5 +247,26 @@ a:active {
 
     100% {
         transform: scale(1.05);
+    }
+}
+
+@media (max-width: 875px) {
+    .character-card-container {
+        width: 135px;
+        height: 82px;
+    }
+
+    .character-card-button img {
+        width: 135px;
+        height: 82px;
+    }
+
+    .character-card-caption {
+        font-size: 0.8rem;
+        padding: 2px 8px;
+    }
+
+    .character-card-caption-border {
+        padding: calc(var(--hover-border) / 2)
     }
 }
