@@ -1,11 +1,30 @@
+import { SmashButton } from "./SmashButton"
+
 export function StartGameDisplay(props) {
   const firstOpen = {
+    startGameElements: (
+      <span className="smash-text">
+        {"Try to select every Smash Bros. Ultimate character without repeats!"}
+      </span>
+    ),
     startGameMessage:
       "Try to select every Smash Bros. Ultimate character without repeats!",
     startButtonMessage: "Start game",
   }
 
   const lostGame = {
+    startGameElements: (
+      <div className="start-game-message-container flex-col center smash-text">
+        <span>{"You already picked " + props.char + "!"}</span>
+        <span>
+          {"You chose " +
+            props.score +
+            " character" +
+            (props.score === 1 ? "" : "s") +
+            " successfully."}
+        </span>
+      </div>
+    ),
     startGameMessage:
       "You already picked " +
       props.char +
@@ -18,6 +37,11 @@ export function StartGameDisplay(props) {
   }
 
   const wonGame = {
+    startGameElements: (
+      <span className="smash-text">
+        {"You picked all " + props.score + " characters without repeats!"}
+      </span>
+    ),
     startGameMessage:
       "You picked all " + props.score + " characters without repeats!",
     startButtonMessage: "Play again",
@@ -33,6 +57,11 @@ export function StartGameDisplay(props) {
         return lostGame
       default:
         return {
+          startGameElements: (
+            <span className="smash-text">
+              {"Unexpected mode " + mode + '"'}
+            </span>
+          ),
           startGameMessage: 'Unexpected mode "' + mode + '"',
           startButtonMessage: "Start game",
         }
@@ -42,11 +71,12 @@ export function StartGameDisplay(props) {
   const info = pickInfo(props.mode)
 
   return (
-    <div>
-      <span>{info.startGameMessage}</span>
-      <button onClick={props.startGameFunction}>
-        {info.startButtonMessage}
-      </button>
+    <div className="game-area-container start-game-container flex-col center">
+      {info.startGameElements}
+      <SmashButton
+        onClick={props.startGameFunction}
+        text={info.startButtonMessage}
+      ></SmashButton>
     </div>
   )
 }

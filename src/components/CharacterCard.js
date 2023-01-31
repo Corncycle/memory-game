@@ -1,5 +1,4 @@
 const imgs = require.context("../images/thumbnails", false)
-console.log(imgs("./wolf.png"))
 
 export function CharacterCard(props) {
   return (
@@ -7,10 +6,12 @@ export function CharacterCard(props) {
       <button className="character-card-button" onClick={props.onClick}>
         <img src={imgs("./" + props.name + ".png")} alt={props.rawName}></img>
       </button>
-      <span
-        className="character-card-caption"
-        dangerouslySetInnerHTML={{ __html: props.rawName }}
-      ></span>
+      <span className="character-card-caption-border">
+        <span
+          className="character-card-caption"
+          dangerouslySetInnerHTML={{ __html: props.rawName }}
+        ></span>
+      </span>
     </div>
   )
 }

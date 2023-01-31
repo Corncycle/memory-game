@@ -1,3 +1,7 @@
 export function CurrentScoreDisplay(props) {
-  return <div>Current Score: {props.score}</div>
+  return (
+    <div className="current-score-container smash-text">
+      Current Score: {props.score}
+    </div>
+  )
 }

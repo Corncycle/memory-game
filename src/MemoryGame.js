@@ -6,6 +6,8 @@ import { CurrentScoreDisplay } from "./components/CurrentScoreDisplay"
 import { TopScoreDisplay } from "./components/TopScoreDisplay"
 import { CharacterOptionsDisplay } from "./components/CharacterOptionsDisplay"
 import { StartGameDisplay } from "./components/StartGameDisplay"
+import { TopBar } from "./components/TopBar"
+import { BottomBar } from "./components/BottomBar"
 
 // all char arrays will store instances of the field "name" of the characters in names.json
 const allChars = getAllChars()
@@ -78,24 +80,29 @@ export function MemoryGame() {
   }
 
   return (
-    <>
-      <CurrentScoreDisplay score={currScore} />
-      <TopScoreDisplay score={topScore} />
-      {isPlaying ? (
-        <CharacterOptionsDisplay
-          chars={currShownChars}
-          rawNames={currShownChars.map((name) => namesToRawName[name])}
-          chooseFunction={chooseChar}
-        />
-      ) : (
-        <StartGameDisplay
-          startGameFunction={startGame}
-          mode={notPlayingStatus}
-          char={namesToRawName[lastIncorrectGuess]}
-          score={currScore}
-        />
-      )}
-      <span>{guessedChars.join(", ")}</span>
-    </>
+    <div className="main-container flex-col">
+      <TopBar />
+      <div className="scores-container flex-col center">
+        <CurrentScoreDisplay score={currScore} />
+        <TopScoreDisplay score={topScore} />
+      </div>
+      <div className="game-container flex-col center">
+        {isPlaying ? (
+          <CharacterOptionsDisplay
+            chars={currShownChars}
+            rawNames={currShownChars.map((name) => namesToRawName[name])}
+            chooseFunction={chooseChar}
+          />
+        ) : (
+          <StartGameDisplay
+            startGameFunction={startGame}
+            mode={notPlayingStatus}
+            char={namesToRawName[lastIncorrectGuess]}
+            score={currScore}
+          />
+        )}
+      </div>
+      <BottomBar />
+    </div>
   )
 }
