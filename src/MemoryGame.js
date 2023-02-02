@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { getRandomElementFromArray } from "./util"
 import { sampleSize } from "lodash"
 import charData from "./names.json"
@@ -8,6 +8,8 @@ import { CharacterOptionsDisplay } from "./components/CharacterOptionsDisplay"
 import { StartGameDisplay } from "./components/StartGameDisplay"
 import { TopBar } from "./components/TopBar"
 import { BottomBar } from "./components/BottomBar"
+
+const imgs = require.context("./images/thumbnails", false)
 
 // all char arrays will store instances of the field "name" of the characters in names.json
 const allChars = getAllChars()
@@ -31,7 +33,18 @@ export function MemoryGame() {
   const [topScore, setTopScore] = useState(
     localStorage.getItem("topScore") || 0
   )
-  const [currShownChars, setCurrShownChars] = useState(getCharOptions())
+  const [currShownChars, setCurrShownChars] = useState([])
+  const [queuedChars, setQueuedChars] = useState([])
+  const [currShownCharsImgs, setCurrShownCharsImgs] = useState([])
+  const [queuedCharsImgs, setQueuedCharsImgs] = useState([])
+  const [backupChar, setBackupChar] = useState("")
+  const [backupCharImg, setBackupCharImg] = useState("")
+
+  useEffect(() => {
+    const startChars = getCharOptions()
+    setQueuedChars(startChars)
+    setQueuedCharsImgs(imgsByArr(startChars))
+  }, [])
 
   function getCharOptions() {
     const opts = sampleSize(allChars, 3)
@@ -42,19 +55,62 @@ export function MemoryGame() {
     return opts
   }
 
+  function imgsByArr(arr) {
+    const out = []
+    for (const char of arr) {
+      // preload image
+      const img = new Image()
+      img.src = imgs("./" + char + ".png")
+      //console.log("we should load" + imgs("./" + char + ".png"))
+      out.push(imgs("./" + char + ".png"))
+    }
+    return out
+  }
+
   function startGame() {
     guessedChars = []
     availChars = [...allChars]
     setCurrScore(0)
     setIsPlaying(true)
+    tryStartRound()
   }
 
   function tryStartRound() {
     if (availChars.length === 0) {
       endGame(true)
     } else {
-      setCurrShownChars(getCharOptions())
+      if (queuedChars.every((char) => guessedChars.includes(char))) {
+        const i = Math.floor(3 * Math.random())
+        const newQueued = [...queuedChars]
+        newQueued[i] = backupChar
+        const newQueuedCharsImgs = [...queuedCharsImgs]
+        newQueuedCharsImgs[i] = backupCharImg
+        setCurrShownChars(newQueued)
+        setCurrShownCharsImgs(newQueuedCharsImgs)
+      } else {
+        setCurrShownChars(queuedChars)
+        setCurrShownCharsImgs(queuedCharsImgs)
+      }
+      const newChars = getCharOptions()
+      setQueuedChars(newChars)
+      setQueuedCharsImgs(imgsByArr(newChars))
+
+      enqueueBackup(newChars)
     }
+  }
+
+  function enqueueBackup(queued) {
+    const allowed = availChars.filter((char) => {
+      return !guessedChars.includes(char) && !queued.includes(char)
+    })
+    if (allowed.length === 0) {
+      return
+    }
+    const i = Math.floor(allowed.length * Math.random())
+    setBackupChar(allowed[i])
+    const img = new Image()
+    img.src = imgs("./" + allowed[i] + ".png")
+    setBackupCharImg(imgs("./" + allowed[i] + ".png"))
   }
 
   function chooseChar(name) {
@@ -93,6 +149,7 @@ export function MemoryGame() {
         {isPlaying ? (
           <CharacterOptionsDisplay
             chars={currShownChars}
+            charsImgs={currShownCharsImgs}
             rawNames={currShownChars.map((name) => namesToRawName[name])}
             chooseFunction={chooseChar}
           />

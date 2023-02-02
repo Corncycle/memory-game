@@ -6,6 +6,7 @@ export function CharacterOptionsDisplay(props) {
       {props.chars.map((char, i) => (
         <CharacterCard
           name={char}
+          img={props.charsImgs[i]}
           rawName={props.rawNames[i]}
           key={i}
           onClick={() => {
